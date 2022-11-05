@@ -1,6 +1,6 @@
 ﻿Random rd1 = new Random();
 
-Console.WriteLine("Choose a difficulty between 1-3!");
+/*Console.WriteLine("Choose a difficulty between 1-3!");*/
 
 int difficulty = DropDownMenu(" -) Easy", " -) Medium"," -) Hard");
 
@@ -72,13 +72,14 @@ void console_output(int eingabe_ergebnis, int ergebnis)
     else if (eingabe_ergebnis == --ergebnis || eingabe_ergebnis == ++ergebnis)
     {
         Console.WriteLine("Close!");
+        SaveHighScore(score);
         Write_Score(score.ToString());
         Retry(score);
     }
     else
     {
         Console.WriteLine("Not even close!");
-        /*SaveHighScore(score);*/
+        SaveHighScore(score);
         Retry(score);
         /*Write_Score(score.ToString());*/
     }
@@ -119,21 +120,21 @@ void Write_Score(string score)
     int lines = score.Length + 13;
         string lines_string = "";
 
-    Console.SetCursorPosition(Console.WindowWidth - length, Console.WindowHeight - 4);
+    Console.SetCursorPosition(Console.WindowWidth - length, Console.WindowHeight - 5);
 
     for (int i = 0; i < lines; i++)
     {
             lines_string = lines_string + "═";
     }
 
-    /*int highScore = GetHighScore();*/
+    int highScore = GetHighScore();
 
     Write_Color("╔" + lines_string + "╗", ConsoleColor.DarkCyan);
-    Console.SetCursorPosition(Console.WindowWidth - length, Console.WindowHeight - 3);
+    Console.SetCursorPosition(Console.WindowWidth - length, Console.WindowHeight - 4);
     Write_Color($"║ Score: {score}     ║", ConsoleColor.DarkCyan);
+    Console.SetCursorPosition(Console.WindowWidth - length, Console.WindowHeight - 3);
+    Write_Color($"║ Highscore: {highScore} ║", ConsoleColor.DarkCyan);
     Console.SetCursorPosition(Console.WindowWidth - length, Console.WindowHeight - 2);
-    /*Write_Color($"║ Highscore: {highScore} ║", ConsoleColor.DarkCyan);
-    Console.SetCursorPosition(Console.WindowWidth - length, Console.WindowHeight - 2);*/
     Write_Color("╚" + lines_string + "╝", ConsoleColor.DarkCyan);
 
     Console.SetCursorPosition(cursor_Left, cursor_Top);
@@ -148,7 +149,7 @@ void Write_Color(string text, ConsoleColor color)
     Console.ForegroundColor = oldcolor;
 }
 
-/*void SaveHighScore (int score)
+void SaveHighScore (int score)
 {
     string path = "./score/highscore.txt";
 
@@ -172,7 +173,7 @@ int GetHighScore()
     sr.Close();
 
     return highScore;
-}*/
+}
 
 int DropDownMenu(params string[] options)
 {
@@ -184,7 +185,8 @@ int DropDownMenu(params string[] options)
 
     do
     {
-        /*Console.Clear();*/
+        Console.Clear();
+        Console.WriteLine("Choose a difficulty between 1-3!");
 
         for (int i = 0; i < options.Length; i++)
         {
